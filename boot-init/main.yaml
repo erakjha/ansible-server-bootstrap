@@ -1,5 +1,5 @@
 - name: Yaml Playbook to bootstrsap node
-  hosts: pub-web
+  hosts: my-web
   user: kunal
   become: yes
   become_method: sudo
