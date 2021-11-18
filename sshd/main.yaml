@@ -1,0 +1,21 @@
+---
+- name: Update ClientAliveInterval to 10
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#ClientAliveInterval*'
+    line: ClientAliveInterval 10
+  register: ClientAliveInterval
+
+- name: Update ClientAliveCountMax to 5
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#ClientAliveCountMax*'
+    line: ClientAliveCountMax 5
+  register: ClientAliveCountMax
+
+- name: Restart service sshd, if not started
+  ansible.builtin.service:
+    name: sshd
+    state: restarted
+  when: ClientAliveInterval.changed or ClientAliveCountMax.changed
+...

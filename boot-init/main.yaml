@@ -1,0 +1,11 @@
+- name: Yaml Playbook to bootstrsap node
+  hosts: pub-web
+  user: kunal
+  become: yes
+  become_method: sudo
+  tasks:
+    - import_tasks: ../hostname/main.yaml
+    - import_tasks: ../sshd/main.yaml
+    - import_tasks: ../java/main.yaml
+    - import_tasks: ../tomcat/main.yaml
+    - import_tasks: ../awscli/main.yaml

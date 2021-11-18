@@ -1,0 +1,19 @@
+---
+- name: Extract awscli-exe-linux-x86_64.zip into /usr/local/vodafone/awscli/
+  ansible.builtin.unarchive:
+    src: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: /usr/local/vodafone/
+    remote_src: yes
+    group: kunal
+    owner: kunal
+  when: ansible_facts['os_family'] == "Debian"
+  register: awscliExtract
+
+- name: Run command to install awscli
+  ansible.builtin.command:
+    argv:
+      - /usr/local/vodafone/aws/install
+  # when: awscliExtract.changed
+  register: aws_install_command_output
+
+...

@@ -1,0 +1,19 @@
+---
+- name: Extract apache-tomcat-9.0.55.tar.gz into /usr/local/vodafone/apache-tomcat-9.0.55/
+  ansible.builtin.unarchive:
+    src: /home/kunal/ansible-bootstrap/resources/tomcat/apache-tomcat-9.0.55.tar.gz
+    dest: /usr/local/vodafone/
+    group: kunal
+    owner: kunal
+  when: ansible_facts['os_family'] == "Debian"
+  register: tomcatExtract
+
+- name: Create a symbolic link for tomcat to apache-tomcat-9.0.55
+  ansible.builtin.file:
+    src: /usr/local/vodafone/apache-tomcat-9.0.55/
+    dest: /usr/local/vodafone/tomcat
+    owner: kunal
+    group: kunal
+    state: link
+  when: tomcatExtract.changed
+...
